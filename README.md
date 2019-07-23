@@ -1,6 +1,6 @@
-# 中文 | [English](https://github.com/plestoon/tbs-android/blob/master/README-en.md)
+### 中文 | [English](https://github.com/plestoon/tbs-android/blob/master/README-en.md)
 
-土拨鼠影音，IPTV播放器。基于libvlc。
+# 土拨鼠影音，IPTV播放器。基于libvlc。
 
 [官网](http://www.turboshow.cn)
 

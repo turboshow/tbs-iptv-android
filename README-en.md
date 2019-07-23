@@ -1,6 +1,6 @@
-# [中文](https://github.com/plestoon/tbs-android) | 英文
+### [中文](https://github.com/plestoon/tbs-android) | 英文
 
-TBS IPTV player for Android devices, based on libvlc.
+# TBS IPTV player for Android devices, based on libvlc.
 
 [official site](http://www.turboshow.cn) (Chinese)
 
@@ -34,6 +34,7 @@ body
 
 #### udpxy
 By default the player uses the rtp protocol. udpxy can be enabled to use http.
+
 `POST http://{yourAppHostIp}:1212/api/settings/udpxy`
 
 body
