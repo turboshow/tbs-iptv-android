@@ -45,5 +45,7 @@ To disable it, POST
 
 ## Build web interface
 `$ cd web`
+
 `$ yarn build`
+
 `$ cp -r build ../app/src/main/assets/www`
