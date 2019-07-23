@@ -7,6 +7,7 @@ Download [APK](http://www.turboshow.cn/assets/tbs.apk)
 ## Configuration
 ### web interface
 `http://{yourAppHostIp}:1212`
+
 Currently the web interface is only in Chinese.
 
 ### web api
@@ -28,6 +29,7 @@ body
 ```
 #### udpxy
 `POST http://{yourAppHostIp}:1212/api/settings/udpxy`
+
 body
 ```
 {
