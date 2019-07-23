@@ -4,7 +4,7 @@ TBS IPTV player for Android devices, based on libvlc.
 
 Download [APK](http://www.turboshow.cn/assets/tbs.apk)
 
-![](http://www.turboshow.cn/assets/screenshot.png | width=100)
+![](http://www.turboshow.cn/assets/screenshot.png)
 ## Configuration
 ### web interface
 `http://{yourAppHostIp}:1212`
