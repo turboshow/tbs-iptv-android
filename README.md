@@ -13,6 +13,7 @@ Currently the web interface is only in Chinese.
 ### web api
 #### Import TV channels
 `POST http://{yourAppHostIp}:1212/api/settings/playlist`
+
 body
 ```
 [
@@ -27,6 +28,8 @@ body
     ...
 ]
 ```
+
+By default the player uses the rtp protocol. udpxy can be enabled to use http.
 #### udpxy
 `POST http://{yourAppHostIp}:1212/api/settings/udpxy`
 
