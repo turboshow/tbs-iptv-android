@@ -34,12 +34,6 @@ class AppModule {
     }
 
     @Provides
-    fun provideWakeLock(context: Context): PowerManager.WakeLock {
-        val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
-        return powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, "tbs:wakelock")
-    }
-
-    @Provides
     @Singleton
     fun provideSharedPreferences(context: Context): SharedPreferences {
         return context.getSharedPreferences("default", Context.MODE_PRIVATE)
