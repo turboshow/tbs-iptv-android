@@ -35,7 +35,7 @@ body
 #### udpxy
 播放器默认使用rtp协议，如路由器支持udpxy，可设置相应地址进行加速.
 
-`POST http://{yourAppHostIp}:1212/api/settings/udpxy`
+`POST http://{app所在设备IP}:1212/api/settings/udpxy`
 
 body
 ```
