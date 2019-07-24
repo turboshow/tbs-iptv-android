@@ -4,7 +4,7 @@
 
 [官网](http://www.turboshow.cn)
 
-[下载](releases)
+[下载](https://gitee.com/sagittar/tbs-android/releases)
 
 ![](http://www.turboshow.cn/assets/screenshot.png)
 ## 设置

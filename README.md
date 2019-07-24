@@ -4,7 +4,7 @@
 
 [official site](http://www.turboshow.cn) (Chinese)
 
-[Downloads](releases)
+[Downloads](https://github.com/plestoon/tbs-android/releases)
 
 ![](http://www.turboshow.cn/assets/screenshot.png)
 ## Configuration
