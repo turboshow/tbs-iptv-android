@@ -4,7 +4,7 @@
 
 [官网](http://www.turboshow.cn)
 
-[下载](https://gitee.com/sagittar/tbs-android/releases)
+[下载](https://github.com/plestoon/tbs-android/releases/download/v0.1.1/tbs-tv-armeabi-v7a-0.1.1.apk)
 
 ![](http://www.turboshow.cn/assets/screenshot.png)
 ## 设置
