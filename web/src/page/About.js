@@ -6,7 +6,7 @@ const { Content } = Layout;
 function About() {
   return (
     <Content style={{ padding: '20px', backgroundColor: 'white' }}>
-      <div>版本: v0.1.1</div>
+      <div>版本: v0.2.0</div>
     </Content>
   );
 }
