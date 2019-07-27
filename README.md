@@ -39,15 +39,15 @@ By default the player uses the RTP protocol. udpxy can be enabled to use HTTP.
 
 body
 ```
-{
-    "addr": "192.168.1.254:1234"
-}
-```
-To disable it, POST
-```
-{
-    "addr": null
-}
+    {
+        "title": "Channel 1",
+        "url": "rtp://239.0.0.1:1234"
+    },
+    {
+        "title": "Channel 2",
+        "url": "rpt://239.0.0.2:1234"
+    },
+    ...
 ```
 
 ## Build web interface
