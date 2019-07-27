@@ -53,8 +53,7 @@ body
 ```
 
 ## build内置web界面
+
 `$ cd web`
 
-`$ yarn build`
-
-`$ cp -r build ../app/src/main/assets/www`
+`$ ./deploy.sh`

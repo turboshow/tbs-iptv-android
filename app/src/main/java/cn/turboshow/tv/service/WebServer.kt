@@ -8,7 +8,9 @@ import cn.turboshow.tv.model.UdpxySettings
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import fi.iki.elonen.NanoHTTPD
+import net.lingala.zip4j.ZipFile
 import okio.Okio
+import org.apache.commons.io.IOUtils
 import java.io.File
 import java.lang.Exception
 import javax.inject.Inject
@@ -21,7 +23,22 @@ class WebServer @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val playlistRepository: PlaylistRepository
 ) : NanoHTTPD(1212) {
+    private val wwwZipFileName = "www.zip"
     private val wwwRoot = "www"
+
+    init {
+        extractWWWFiles()
+    }
+
+    // TODO: optimization (caching and async)
+    private fun extractWWWFiles() {
+        val zipFile = File(context.filesDir, wwwZipFileName)
+        val wwwDir = File(context.filesDir, wwwRoot)
+        zipFile.delete()
+        wwwDir.deleteRecursively()
+        IOUtils.copy(context.assets.open(wwwZipFileName), zipFile.outputStream())
+        ZipFile(zipFile).extractAll(context.filesDir.absolutePath)
+    }
 
     private fun get(session: IHTTPSession, pathPattern: String): Boolean {
         return session.method == Method.GET && session.uri == pathPattern
@@ -61,23 +78,20 @@ class WebServer @Inject constructor(
     }
 
     private fun serveFiles(session: IHTTPSession): Response {
-        var targetPath = "$wwwRoot${session.uri}".dropLastWhile { it == '/' }
-        val assets = context.assets
-        if (assets.list(targetPath)?.isNotEmpty() == true) {
-            targetPath = "$targetPath/index.html"
+        var targetFile = File(context.filesDir, "$wwwRoot${session.uri}".dropLastWhile { it == '/' })
+        if (targetFile.isDirectory) {
+            targetFile = File(targetFile, "index.html")
         }
 
-        val targetFd = try {
-            assets.openFd(targetPath)
-        } catch (e: Exception) {
-            assets.openFd("$wwwRoot/index.html")
+        if (!targetFile.exists()) {
+            targetFile = File(context.filesDir, "$wwwRoot/index.html")
         }
 
         return newFixedLengthResponse(
             Response.Status.OK,
             null,
-            targetFd.createInputStream(),
-            targetFd.length
+            targetFile.inputStream(),
+            targetFile.length()
         )
     }
 
