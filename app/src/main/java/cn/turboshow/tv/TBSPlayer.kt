@@ -14,7 +14,7 @@ class TBSPlayer(context: Context, videoView: VLCVideoLayout) {
     init {
         player = MediaPlayer(libVLC)
         player.attachViews(videoView, null, false, false)
-        player.videoScale = MediaPlayer.ScaleType.SURFACE_BEST_FIT
+        player.videoScale = MediaPlayer.ScaleType.SURFACE_16_9
     }
 
     fun play(uri: Uri) {
