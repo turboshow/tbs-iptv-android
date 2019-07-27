@@ -30,7 +30,7 @@ function BaseLayout({ children, location }) {
         </Menu>
       </Header>
       {children}
-      <Footer style={{ textAlign: 'center' }}>©2019 <a href="http://www.tvband.cn" target="_blank" rel="noopener noreferrer">土拨鼠</a></Footer>
+      <Footer style={{ textAlign: 'center' }}>©2019 <a href="http://www.turboshow.cn" target="_blank" rel="noopener noreferrer">土拨鼠</a></Footer>
     </Layout>
   );
 }
