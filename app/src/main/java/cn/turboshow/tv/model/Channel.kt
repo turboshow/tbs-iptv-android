@@ -6,7 +6,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Channel(
     val title: String,
-    val addr: String
+    val url: String
 ) : Parcelable {
     override fun toString(): String {
         return title

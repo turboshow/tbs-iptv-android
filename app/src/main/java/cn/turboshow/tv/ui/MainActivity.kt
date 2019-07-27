@@ -35,12 +35,12 @@ class MainActivity : DaggerAppCompatActivity() {
 
     private fun play() {
         viewModel.currentChannel.value?.let {
-            val url =
-                if (viewModel.udpxyAddr.value != null)
-                    "http://${settingsRepository.udpxyAddr.value}/rtp/${it.addr}"
+            val uri =
+                if (it.url.startsWith("rtp:") && viewModel.udpxyAddr.value != null)
+                    "http://${settingsRepository.udpxyAddr.value}/${it.url.replace("://", "/")}"
                 else
-                    "rtp://${it.addr}"
-            player.play(Uri.parse(url))
+                    it.url
+            player.play(Uri.parse(uri))
         }
     }
 
