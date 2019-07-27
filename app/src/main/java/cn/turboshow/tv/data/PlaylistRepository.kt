@@ -1,18 +1,15 @@
 package cn.turboshow.tv.data
 
-import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import cn.turboshow.tv.model.Channel
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
-import okio.Okio
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class PlaylistRepository @Inject constructor(
-    private val context: Context,
     private val sharedPreferences: SharedPreferences,
     private val moshi: Moshi
 ) {

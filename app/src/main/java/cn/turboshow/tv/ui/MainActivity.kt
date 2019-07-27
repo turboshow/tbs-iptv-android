@@ -7,12 +7,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import cn.turboshow.tv.AppViewModel
 import cn.turboshow.tv.R
+import cn.turboshow.tv.TBSPlayer
 import cn.turboshow.tv.data.SettingsRepository
 import cn.turboshow.tv.di.viewModelProvider
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import org.videolan.libvlc.LibVLC
-import org.videolan.libvlc.MediaPlayer
 import javax.inject.Inject
 
 
@@ -22,32 +21,16 @@ class MainActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var settingsRepository: SettingsRepository
     private lateinit var viewModel: AppViewModel
-    private lateinit var libVLC: LibVLC
-    private lateinit var mediaPlayer: MediaPlayer
+    private lateinit var player: TBSPlayer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = viewModelProvider(viewModelFactory)
         setContentView(R.layout.activity_main)
-        initPlayer()
+        player = TBSPlayer(this, videoView)
+
+        viewModel = viewModelProvider(viewModelFactory)
         viewModel.startWebServer()
-    }
-
-    private fun initPlayer() {
-        val options = arrayListOf("--vout=android_display,none")
-        libVLC = LibVLC(this, options)
-        mediaPlayer = MediaPlayer(libVLC)
-        mediaPlayer.attachViews(videoView, null, false, false)
-        mediaPlayer.videoScale = MediaPlayer.ScaleType.SURFACE_BEST_FIT
-
-        viewModel.currentChannel.observe(this, Observer {
-            play()
-        })
-
-        viewModel.udpxyAddr.observe(this, Observer {
-            play()
-        })
     }
 
     private fun play() {
@@ -57,8 +40,12 @@ class MainActivity : DaggerAppCompatActivity() {
                     "http://${settingsRepository.udpxyAddr.value}/rtp/${it.addr}"
                 else
                     "rtp://${it.addr}"
-            mediaPlayer.play(Uri.parse(url))
+            player.play(Uri.parse(url))
         }
+    }
+
+    private fun stop() {
+        player.stop()
     }
 
     private fun showChannelsDialog() {
@@ -84,10 +71,30 @@ class MainActivity : DaggerAppCompatActivity() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        viewModel.currentChannel.observe(this, Observer {
+            play()
+        })
+
+        viewModel.udpxyAddr.observe(this, Observer {
+            play()
+        })
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        stop()
+
+        viewModel.currentChannel.removeObservers(this)
+        viewModel.udpxyAddr.removeObservers(this)
+    }
+
     override fun onDestroy() {
         viewModel.stopWebServer()
-        mediaPlayer.release()
-        libVLC.release()
+        player.release()
 
         super.onDestroy()
     }
