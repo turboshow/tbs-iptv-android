@@ -12,7 +12,6 @@ import net.lingala.zip4j.ZipFile
 import okio.Okio
 import org.apache.commons.io.IOUtils
 import java.io.File
-import java.lang.Exception
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -53,12 +52,17 @@ class WebServer @Inject constructor(
     }
 
     private fun updatePlaylist(session: IHTTPSession): Response {
-        val files = mutableMapOf<String, String>()
-        session.parseBody(files)
-        val tmp = File(files["playlist"])
         val channelListType = Types.newParameterizedType(List::class.java, Channel::class.java)
         val adapter = moshi.adapter<List<Channel>>(channelListType)
-        val playlist = adapter.fromJson(Okio.buffer(Okio.source(tmp.inputStream())))
+
+        val files = mutableMapOf<String, String>()
+        session.parseBody(files)
+        val playlist = if (files.containsKey("playlist")) {
+            val tmp = File(files["playlist"])
+            adapter.fromJson(Okio.buffer(Okio.source(tmp.inputStream())))
+        } else {
+            adapter.fromJson(files["postData"]!!)
+        }
         playlistRepository.updateChannels(playlist!!)
 
         return newFixedLengthResponse("accepted")
