@@ -4,9 +4,7 @@
 
 [官网](http://www.turboshow.cn)
 
-[下载](https://github.com/plestoon/tbs-android/releases/download/v0.1.1/tbs-tv-armeabi-v7a-0.1.1.apk)
-
-![](http://www.turboshow.cn/assets/screenshot.png)
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0727/201458_7b480937_82552.png "screenshot.png")
 ## 设置
 ### web界面
 `http://{app所在设备IP}:1212`
