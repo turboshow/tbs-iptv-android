@@ -12,7 +12,7 @@ function UdpxySettings({ form }) {
   useEffect(() => {
     fetchUdpxySettings().then(settings => {
       setFieldsValue({
-        enable: settings.addr !== null,
+        enable: settings.addr != null,
         addr: settings.addr
       });
     })
