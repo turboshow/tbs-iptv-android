@@ -20,10 +20,14 @@ android {
 
     signingConfigs {
         release {
-            storeFile file(keyStoreFile)
-            storePassword releasePassword
+            if (project.hasProperty('keyStoreFile')) {
+                storeFile file(keyStoreFile)
+            }
             keyAlias "tbs"
-            keyPassword releasePassword
+            if (project.hasProperty('releasePassword')) {
+                storePassword releasePassword
+                keyPassword releasePassword
+            }
         }
     }
 
