@@ -1,8 +1,10 @@
 import { Button, Form, Input, message, Radio } from 'antd';
 import React, { useEffect } from 'react';
 import { fetchUdpxySettings, updateUdpxySettings } from '../../api';
+import { useTranslation } from 'react-i18next';
 
 function UdpxySettings({ form }) {
+  const { t } = useTranslation();
   const { getFieldDecorator, setFieldsValue, getFieldValue, validateFields } = form;
   const formItemLayout = {
     labelCol: { span: 2 },
@@ -24,31 +26,31 @@ function UdpxySettings({ form }) {
       if (!error) {
         updateUdpxySettings({
           addr: (form.getFieldValue('enable') && form.getFieldValue('addr')) || null
-        }).then(() => message.success('保存成功'), () => message.error('保存失败'));
+        }).then(() => message.success(t('udpxy.success')), () => message.error(t('udpxy.error')));
       }
     })
   }
 
   return (
     <Form {...formItemLayout} onSubmit={handleSubmit}>
-      <Form.Item label="开启">
+      <Form.Item label={t('udpxy.enable')}>
         {getFieldDecorator('enable', {
           rules: [{
             required: true,
-            message: '请选择'
+            message: t('udpxy.enableErrorMsg')
           }]
         })(
           <Radio.Group>
-            <Radio value={true}>是</Radio>
-            <Radio value={false}>否</Radio>
+            <Radio value={true}>{t('udpxy.yes')}</Radio>
+            <Radio value={false}>{t('udpxy.no')}</Radio>
           </Radio.Group>
         )}
       </Form.Item>
-      <Form.Item label="地址">
+      <Form.Item label={t('udpxy.address')}>
         {getFieldDecorator('addr', {
           rules: [{
             required: getFieldValue('enable') === true,
-            message: '地址不能为空'
+            message: t('udpxy.addressErrorMsg')
           }]
         })(
           <Input placeholder="192.168.1.254:1212" disabled={!getFieldValue('enable')} />
@@ -56,8 +58,8 @@ function UdpxySettings({ form }) {
       </Form.Item>
       <Form.Item wrapperCol={{ span: 2, offset: 2 }}>
         <Button type="primary" htmlType="submit">
-          保存
-          </Button>
+          {t('udpxy.save')}
+        </Button>
       </Form.Item>
     </Form>
   );
