@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<fragment
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main_fragment"
+        android:name="cn.turboshow.tv.ui.MainFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/black"
-        android:keepScreenOn="true"
-        tools:context=".ui.MainActivity">
-
-    <org.videolan.libvlc.util.VLCVideoLayout
-            android:id="@+id/videoView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-    />
-</FrameLayout>
+        android:layout_height="match_parent"/>

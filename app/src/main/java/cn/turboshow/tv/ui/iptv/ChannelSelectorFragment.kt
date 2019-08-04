@@ -1,4 +1,4 @@
-package cn.turboshow.tv.ui
+package cn.turboshow.tv.ui.iptv
 
 import android.os.Bundle
 import android.view.LayoutInflater

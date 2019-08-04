@@ -13,6 +13,7 @@ class TBSPlayer(context: Context, private val videoView: VLCVideoLayout) {
 
     fun play(uri: Uri) {
         player.attachViews(videoView, null, false, false)
+        player.updateVideoSurfaces()
         player.videoScale = MediaPlayer.ScaleType.SURFACE_16_9
         player.play(uri)
     }

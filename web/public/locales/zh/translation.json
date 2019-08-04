@@ -1,0 +1,23 @@
+{
+  "appName": "土拨鼠影音",
+  "settings": "设置",
+  "about": "关于",
+  "version": "版本",
+  "playlist": {
+    "name": "频道列表",
+    "importButtonMessage": "点击导入频道列表",
+    "success": "导入成功",
+    "error": "上传失败, 请检查文件格式是否正确"
+  },
+  "udpxy": {
+    "enable": "启用",
+    "yes": "是",
+    "no": "否",
+    "address": "地址",
+    "save": "保存",
+    "success": "保存成功",
+    "error": "保存失败",
+    "enableErrorMsg": "请选择",
+    "addressErrorMsg": "请输入有效地址"
+  }
+}
