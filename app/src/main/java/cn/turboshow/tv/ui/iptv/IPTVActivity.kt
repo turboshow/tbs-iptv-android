@@ -11,13 +11,13 @@ import cn.turboshow.tv.AppViewModel
 import cn.turboshow.tv.R
 import cn.turboshow.tv.TBSPlayer
 import cn.turboshow.tv.data.SettingsRepository
+import cn.turboshow.tv.di.DaggerFragmentActivity
 import cn.turboshow.tv.di.viewModelProvider
-import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_iptv.*
 import javax.inject.Inject
 
 
-class IPTVActivity : DaggerAppCompatActivity() {
+class IPTVActivity : DaggerFragmentActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject
