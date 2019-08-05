@@ -6,23 +6,26 @@ import androidx.leanback.widget.ArrayObjectAdapter
 import androidx.leanback.widget.HeaderItem
 import androidx.leanback.widget.ListRow
 import androidx.leanback.widget.ListRowPresenter
+import androidx.leanback.widget.OnItemViewClickedListener
 import cn.turboshow.tv.R
+import cn.turboshow.tv.ui.iptv.IPTVActivity
 import cn.turboshow.tv.ui.presenter.GridItemPresenter
 
 class MainFragment : BrowseSupportFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        loadHeaders()
         setupUIElements()
+        setupEventListeners()
+        loadData()
     }
 
-    private fun loadHeaders() {
+    private fun loadData() {
         adapter = ArrayObjectAdapter(ListRowPresenter()).apply {
             add(
                 ListRow(
                     HeaderItem(resources.getString(R.string.browse)),
-                    ArrayObjectAdapter(GridItemPresenter(this@MainFragment)).apply {
+                    ArrayObjectAdapter(GridItemPresenter()).apply {
                         add("USB")
                         add("DLNA")
                         add("SMB")
@@ -32,7 +35,7 @@ class MainFragment : BrowseSupportFragment() {
             add(
                 ListRow(
                     HeaderItem(resources.getString(R.string.iptv)),
-                    ArrayObjectAdapter(GridItemPresenter(this@MainFragment)).apply {
+                    ArrayObjectAdapter(GridItemPresenter()).apply {
                         add("Watch")
                     })
             )
@@ -44,5 +47,17 @@ class MainFragment : BrowseSupportFragment() {
         headersState = HEADERS_ENABLED
         isHeadersTransitionOnBackEnabled = true
         brandColor = resources.getColor(R.color.colorPrimary)
+    }
+
+    private fun setupEventListeners() {
+        onItemViewClickedListener = OnItemViewClickedListener { itemViewHolder, item, rowViewHolder, row ->
+            when (item) {
+                "Watch" -> openIPTVActivity()
+            }
+        }
+    }
+
+    private fun openIPTVActivity() {
+        startActivity(IPTVActivity.newIntent(activity!!))
     }
 }

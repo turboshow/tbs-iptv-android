@@ -24,15 +24,8 @@ import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import cn.turboshow.tv.R;
-import cn.turboshow.tv.ui.MainFragment;
 
 public class GridItemPresenter extends Presenter {
-    private final MainFragment mainFragment;
-
-    public GridItemPresenter(MainFragment mainFragment) {
-        this.mainFragment = mainFragment;
-    }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent) {
         TextView view = new TextView(parent.getContext());

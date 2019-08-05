@@ -1,5 +1,7 @@
 package cn.turboshow.tv.ui.iptv
 
+import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.KeyEvent
@@ -97,5 +99,11 @@ class IPTVActivity : DaggerAppCompatActivity() {
         player.release()
 
         super.onDestroy()
+    }
+
+    companion object {
+        fun newIntent(context: Context): Intent {
+            return Intent(context, IPTVActivity::class.java)
+        }
     }
 }
