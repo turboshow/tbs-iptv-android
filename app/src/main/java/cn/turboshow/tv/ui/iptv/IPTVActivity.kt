@@ -32,7 +32,6 @@ class IPTVActivity : DaggerFragmentActivity() {
         player = TBSPlayer(this, videoView)
 
         viewModel = viewModelProvider(viewModelFactory)
-        viewModel.startWebServer()
     }
 
     private fun play() {
@@ -95,7 +94,6 @@ class IPTVActivity : DaggerFragmentActivity() {
     }
 
     override fun onDestroy() {
-        viewModel.stopWebServer()
         player.release()
 
         super.onDestroy()

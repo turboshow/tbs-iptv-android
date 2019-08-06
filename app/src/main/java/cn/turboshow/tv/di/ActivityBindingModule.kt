@@ -12,5 +12,5 @@ abstract class ActivityBindingModule {
             BindsModule::class
         ]
     )
-    internal abstract fun mainActivity(): IPTVActivity
+    internal abstract fun bindIPTVActivity(): IPTVActivity
 }

@@ -9,8 +9,7 @@ import javax.inject.Inject
 
 class AppViewModel @Inject constructor(
     private val playlistRepository: PlaylistRepository,
-    settingsRepository: SettingsRepository,
-    private val httpServer: WebServer
+    settingsRepository: SettingsRepository
 ): ViewModel() {
     val channels = playlistRepository.channels
     val currentChannel = playlistRepository.currentChannel
@@ -26,13 +25,5 @@ class AppViewModel @Inject constructor(
 
     fun prevChannel() {
         playlistRepository.prevChannel()
-    }
-
-    fun startWebServer() {
-        httpServer.start(NanoHTTPD.SOCKET_READ_TIMEOUT, true)
-    }
-
-    fun stopWebServer() {
-        httpServer.stop()
     }
 }

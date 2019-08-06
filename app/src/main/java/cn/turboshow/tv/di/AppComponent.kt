@@ -12,6 +12,7 @@ import javax.inject.Singleton
         AndroidSupportInjectionModule::class,
         AppModule::class,
         ActivityBindingModule::class,
+        ServiceBindingModule::class,
         ViewModelModule::class
     ]
 )
