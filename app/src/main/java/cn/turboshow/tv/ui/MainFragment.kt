@@ -62,6 +62,9 @@ class MainFragment : BrowseSupportFragment() {
 
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
             upnpService = (service as AndroidUpnpService).also {
+                it.registry.devices.forEach { device ->
+                    devicesAdapter.add(device.displayString)
+                }
                 it.registry.addListener(upnpRegistryListener)
                 it.controlPoint.search()
             }
