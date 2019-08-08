@@ -4,23 +4,23 @@ import android.content.Context
 import android.content.Intent
 import android.os.IBinder
 import dagger.android.DaggerService
+import io.reactivex.subjects.Subject
+import org.fourthline.cling.model.meta.RemoteDevice
 import javax.inject.Inject
 
 class TBSService : DaggerService() {
     @Inject
-    lateinit var upnpService: UpnpService
-    @Inject
     lateinit var webServer: WebServer
+
+    override fun onBind(intent: Intent?): IBinder? {
+        return null
+    }
+
 
     override fun onCreate() {
         super.onCreate()
 
-        upnpService.start()
         webServer.start()
-    }
-
-    override fun onBind(intent: Intent): IBinder {
-        TODO("Return the communication channel to the service.")
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -30,7 +30,6 @@ class TBSService : DaggerService() {
     override fun onDestroy() {
         super.onDestroy()
 
-        upnpService.stop()
         webServer.stop()
     }
 

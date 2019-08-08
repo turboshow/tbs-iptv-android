@@ -30,7 +30,7 @@
                 android:theme="@style/Theme.Leanback.Browse">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
+                <category android:name="android.intent.category.LAUNCHER"/>
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER"/>
             </intent-filter>
         </activity>
@@ -38,10 +38,8 @@
                 android:name=".ui.iptv.IPTVActivity"
                 android:theme="@style/Theme.Leanback">
         </activity>
-        <service
-                android:name=".service.TBSService"
-                android:enabled="true">
-        </service>
+        <service android:name=".service.TBSService"/>
+        <service android:name="org.fourthline.cling.android.AndroidUpnpServiceImpl"/>
         <receiver
                 android:name=".receiver.StayAliveReceiver"
                 android:enabled="true"
