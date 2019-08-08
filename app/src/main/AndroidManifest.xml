@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools" package="cn.turboshow.tv">
+          xmlns:tools="http://schemas.android.com/tools"
+          package="cn.turboshow.tv">
+
+    <uses-feature
+            android:name="android.software.leanback"
+            android:required="true"/>
+    <uses-feature
+            android:name="android.hardware.touchscreen"
+            android:required="false"/>
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
@@ -11,15 +23,31 @@
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:supportsRtl="true"
-            android:theme="@style/AppTheme"
+            android:theme="@style/Theme.Leanback"
             tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".ui.MainActivity">
+        <activity
+                android:name=".ui.MainActivity"
+                android:theme="@style/Theme.Leanback.Browse">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+                android:name=".ui.iptv.IPTVActivity"
+                android:theme="@style/Theme.Leanback">
+        </activity>
+        <service android:name=".service.TBSService"/>
+        <service android:name="org.fourthline.cling.android.AndroidUpnpServiceImpl"/>
+        <receiver
+                android:name=".receiver.StayAliveReceiver"
+                android:enabled="true"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

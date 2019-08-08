@@ -1,6 +1,6 @@
 package cn.turboshow.tv.di
 
-import cn.turboshow.tv.ui.MainActivity
+import cn.turboshow.tv.ui.iptv.IPTVActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -12,5 +12,5 @@ abstract class ActivityBindingModule {
             BindsModule::class
         ]
     )
-    internal abstract fun mainActivity(): MainActivity
+    internal abstract fun bindIPTVActivity(): IPTVActivity
 }

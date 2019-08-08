@@ -1,0 +1,23 @@
+{
+  "appName": "TBS",
+  "settings": "Settings",
+  "about": "About",
+  "version": "Version",
+  "playlist": {
+    "name": "Playlist",
+    "importButtonMessage": "Click to upload playlist",
+    "success": "Success",
+    "error": "Failed"
+  },
+  "udpxy": {
+    "enable": "Enable",
+    "yes": "Yes",
+    "no": "No",
+    "address": "Address",
+    "save": "Save",
+    "success": "Success",
+    "error": "Failed",
+    "enableErrorMsg": "Please choose an option",
+    "addressErrorMsg": "Please enter a valid address"
+  }
+}

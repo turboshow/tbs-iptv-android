@@ -2,11 +2,10 @@ package cn.turboshow.tv.di
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.os.PowerManager
 import androidx.lifecycle.ViewModel
 import cn.turboshow.tv.App
 import cn.turboshow.tv.AppViewModel
-import cn.turboshow.tv.ui.ChannelSelectorFragment
+import cn.turboshow.tv.ui.iptv.ChannelSelectorFragment
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Binds

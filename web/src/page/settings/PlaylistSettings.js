@@ -1,7 +1,9 @@
 import { Button, Icon, message, Upload } from 'antd';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 function PlaylistSettings() {
+  const { t } = useTranslation();
   const props = {
     name: 'playlist',
     action: '/api/settings/playlist',
@@ -11,9 +13,9 @@ function PlaylistSettings() {
         console.log(info.file, info.fileList);
       }
       if (info.file.status === 'done') {
-        message.success('上传成功');
+        message.success(t('playlist.success'));
       } else if (info.file.status === 'error') {
-        message.error('上传失败, 请检查文件格式是否正确');
+        message.error(t('playlist.error'));
       }
     },
   };
@@ -22,7 +24,7 @@ function PlaylistSettings() {
     <div style={{ padding: '20px' }}>
       <Upload {...props}>
         <Button>
-          <Icon type="upload" />点击上传频道列表
+          <Icon type="upload" />{t('playlist.importButtonMessage')}
         </Button>
       </Upload>
     </div>

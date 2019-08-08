@@ -6,12 +6,10 @@
 
 [Downloads](https://github.com/plestoon/tbs-android/releases)
 
-![](http://www.turboshow.cn/assets/screenshot.png)
+![](http://www.turboshow.cn/assets/img/screenshot_tv.ede24e22.png)
 ## Configuration
 ### web interface
 `http://{yourAppHostIp}:1212`
-
-Currently the web interface is only in Chinese.
 
 ### web api
 #### Import TV channels
