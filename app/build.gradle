@@ -105,7 +105,6 @@ dependencies {
     // commons-io
     implementation "commons-io:commons-io:$commonsIoVersion"
 
-
     // cling
     implementation "org.fourthline.cling:cling-core:$clingVersion"
 
