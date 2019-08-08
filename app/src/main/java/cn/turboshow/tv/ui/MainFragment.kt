@@ -24,39 +24,33 @@ class MainFragment : BrowseSupportFragment() {
     private val devicesAdapter = ArrayObjectAdapter(GridItemPresenter())
     private val upnpRegistryListener = object : RegistryListener {
         override fun localDeviceRemoved(registry: Registry?, device: LocalDevice?) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
         override fun remoteDeviceDiscoveryStarted(registry: Registry?, device: RemoteDevice?) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
         override fun remoteDeviceDiscoveryFailed(registry: Registry?, device: RemoteDevice?, ex: Exception?) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
         override fun afterShutdown() {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
         override fun remoteDeviceAdded(registry: Registry?, device: RemoteDevice?) {
-            devicesAdapter.add(device!!.displayString)
+            activity!!.runOnUiThread {
+                devicesAdapter.add(device!!.displayString)
+            }
         }
 
         override fun remoteDeviceUpdated(registry: Registry?, device: RemoteDevice?) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
         override fun beforeShutdown(registry: Registry?) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
         override fun remoteDeviceRemoved(registry: Registry?, device: RemoteDevice?) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
         override fun localDeviceAdded(registry: Registry?, device: LocalDevice?) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
     }

@@ -19,7 +19,7 @@ buildscript {
     ext.libvlcVersion = '3.1.7'
     ext.zip4jVersion = '2.1.1'
     ext.commonsIoVersion = '2.6'
-    ext.clingVersion = '2.1.2'
+    ext.clingVersion = '2.1.2-SNAPSHOT'
     ext.jettyVersion = '8.1.22.v20160922'
 
     repositories {
