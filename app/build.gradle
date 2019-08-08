@@ -118,3 +118,9 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
+
+configurations.all {
+    resolutionStrategy.force "org.seamless:seamless-http:$seamlessVersion"
+    resolutionStrategy.force "org.seamless:seamless-util:$seamlessVersion"
+    resolutionStrategy.force "org.seamless:seamless-xml:$seamlessVersion"
+}
