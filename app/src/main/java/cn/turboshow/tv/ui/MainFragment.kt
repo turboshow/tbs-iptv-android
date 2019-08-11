@@ -38,16 +38,7 @@ class MainFragment : BrowseSupportFragment() {
         }
 
         override fun remoteDeviceAdded(registry: Registry?, device: RemoteDevice?) {
-            activity!!.runOnUiThread {
-                if (device !in devicesAdapter.unmodifiableList<RemoteDevice>()) {
-                    for (service in device!!.services) {
-                        if (service.serviceType.type == SERVICE_TYPE_CONTENT_DIRECTORY) {
-                            devicesAdapter.add(BrowseItem(device.displayString) {})
-                            break
-                        }
-                    }
-                }
-            }
+            onUpnpDeviceAdded(device!!)
         }
 
         override fun remoteDeviceUpdated(registry: Registry?, device: RemoteDevice?) {
@@ -74,18 +65,7 @@ class MainFragment : BrowseSupportFragment() {
 
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
             upnpService = (service as AndroidUpnpService).also {
-                it.registry.devices.forEach { device ->
-                    activity!!.runOnUiThread {
-                        if (device !in devicesAdapter.unmodifiableList<RemoteDevice>()) {
-                            for (upnpService in device!!.services) {
-                                if (upnpService.serviceType.type == SERVICE_TYPE_CONTENT_DIRECTORY) {
-                                    devicesAdapter.add(BrowseItem(device.displayString) {})
-                                    break
-                                }
-                            }
-                        }
-                    }
-                }
+                it.registry.remoteDevices.forEach(::onUpnpDeviceAdded)
                 it.registry.addListener(upnpRegistryListener)
                 it.controlPoint.search()
             }
@@ -141,6 +121,23 @@ class MainFragment : BrowseSupportFragment() {
         onItemViewClickedListener = OnItemViewClickedListener { _, item, _, _ ->
             (item as BrowseItem).onSelected()
         }
+    }
+
+    private fun onUpnpDeviceAdded(device: RemoteDevice) {
+        activity!!.runOnUiThread {
+            if (device !in devicesAdapter.unmodifiableList<RemoteDevice>()) {
+                for (upnpService in device.services) {
+                    if (upnpService.serviceType.type == SERVICE_TYPE_CONTENT_DIRECTORY) {
+                        devicesAdapter.add(BrowseItem(device.displayString, ::openBrowseActivity))
+                        break
+                    }
+                }
+            }
+        }
+    }
+
+    private fun openBrowseActivity() {
+        startActivity(BrowseActivity.newIntent(activity!!))
     }
 
     private fun openIPTVActivity() {
