@@ -9,6 +9,7 @@ import android.os.IBinder
 import androidx.leanback.app.BrowseSupportFragment
 import androidx.leanback.widget.*
 import cn.turboshow.tv.R
+import cn.turboshow.tv.browse.BrowseItem
 import cn.turboshow.tv.ui.iptv.IPTVActivity
 import cn.turboshow.tv.ui.presenter.GridItemPresenter
 import org.fourthline.cling.android.AndroidUpnpService
@@ -41,7 +42,7 @@ class MainFragment : BrowseSupportFragment() {
                 if (device !in devicesAdapter.unmodifiableList<RemoteDevice>()) {
                     for (service in device!!.services) {
                         if (service.serviceType.type == SERVICE_TYPE_CONTENT_DIRECTORY) {
-                            devicesAdapter.add(device.displayString)
+                            devicesAdapter.add(BrowseItem(device.displayString) {})
                             break
                         }
                     }
@@ -78,7 +79,7 @@ class MainFragment : BrowseSupportFragment() {
                         if (device !in devicesAdapter.unmodifiableList<RemoteDevice>()) {
                             for (upnpService in device!!.services) {
                                 if (upnpService.serviceType.type == SERVICE_TYPE_CONTENT_DIRECTORY) {
-                                    devicesAdapter.add(device.displayString)
+                                    devicesAdapter.add(BrowseItem(device.displayString) {})
                                     break
                                 }
                             }
@@ -123,7 +124,7 @@ class MainFragment : BrowseSupportFragment() {
                 ListRow(
                     HeaderItem(resources.getString(R.string.iptv)),
                     ArrayObjectAdapter(GridItemPresenter()).apply {
-                        add("Watch")
+                        add(BrowseItem(resources.getString(R.string.watch), ::openIPTVActivity))
                     })
             )
         }
@@ -138,9 +139,7 @@ class MainFragment : BrowseSupportFragment() {
 
     private fun setupEventListeners() {
         onItemViewClickedListener = OnItemViewClickedListener { _, item, _, _ ->
-            when (item) {
-                "Watch" -> openIPTVActivity()
-            }
+            (item as BrowseItem).onSelected()
         }
     }
 

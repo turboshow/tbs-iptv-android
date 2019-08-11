@@ -18,11 +18,11 @@ package cn.turboshow.tv.ui.presenter;
 
 import android.content.res.Resources;
 import android.graphics.Color;
-import androidx.leanback.widget.Presenter;
-import androidx.core.content.ContextCompat;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import androidx.core.content.ContextCompat;
+import androidx.leanback.widget.Presenter;
 import cn.turboshow.tv.R;
 
 public class GridItemPresenter extends Presenter {
@@ -46,7 +46,7 @@ public class GridItemPresenter extends Presenter {
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, Object item) {
-        ((TextView) viewHolder.view).setText((String) item);
+        ((TextView) viewHolder.view).setText(item.toString());
     }
 
     @Override
