@@ -17,7 +17,8 @@ import org.fourthline.cling.model.meta.LocalDevice
 import org.fourthline.cling.model.meta.RemoteDevice
 import org.fourthline.cling.registry.Registry
 import org.fourthline.cling.registry.RegistryListener
-import java.lang.Exception
+
+private const val SERVICE_TYPE_CONTENT_DIRECTORY = "ContentDirectory"
 
 class MainFragment : BrowseSupportFragment() {
     private var upnpService: AndroidUpnpService? = null
@@ -37,7 +38,14 @@ class MainFragment : BrowseSupportFragment() {
 
         override fun remoteDeviceAdded(registry: Registry?, device: RemoteDevice?) {
             activity!!.runOnUiThread {
-                devicesAdapter.add(device!!.displayString)
+                if (device !in devicesAdapter.unmodifiableList<RemoteDevice>()) {
+                    for (service in device!!.services) {
+                        if (service.serviceType.type == SERVICE_TYPE_CONTENT_DIRECTORY) {
+                            devicesAdapter.add(device.displayString)
+                            break
+                        }
+                    }
+                }
             }
         }
 
@@ -48,6 +56,9 @@ class MainFragment : BrowseSupportFragment() {
         }
 
         override fun remoteDeviceRemoved(registry: Registry?, device: RemoteDevice?) {
+            activity!!.runOnUiThread {
+                devicesAdapter.remove(device)
+            }
         }
 
         override fun localDeviceAdded(registry: Registry?, device: LocalDevice?) {
@@ -63,7 +74,16 @@ class MainFragment : BrowseSupportFragment() {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
             upnpService = (service as AndroidUpnpService).also {
                 it.registry.devices.forEach { device ->
-                    devicesAdapter.add(device.displayString)
+                    activity!!.runOnUiThread {
+                        if (device !in devicesAdapter.unmodifiableList<RemoteDevice>()) {
+                            for (upnpService in device!!.services) {
+                                if (upnpService.serviceType.type == SERVICE_TYPE_CONTENT_DIRECTORY) {
+                                    devicesAdapter.add(device.displayString)
+                                    break
+                                }
+                            }
+                        }
+                    }
                 }
                 it.registry.addListener(upnpRegistryListener)
                 it.controlPoint.search()
