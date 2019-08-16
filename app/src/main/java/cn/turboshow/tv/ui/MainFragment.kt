@@ -1,28 +1,26 @@
 package cn.turboshow.tv.ui
 
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
-import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.IBinder
 import androidx.leanback.app.BrowseSupportFragment
 import androidx.leanback.widget.*
 import cn.turboshow.tv.R
-import cn.turboshow.tv.browse.BrowseItem
-import cn.turboshow.tv.ui.iptv.IPTVActivity
+import cn.turboshow.tv.browse.IptvItem
+import cn.turboshow.tv.browse.UpnpDeviceItem
+import cn.turboshow.tv.service.TBSService
+import cn.turboshow.tv.ui.browse.UpnpBrowseActivity
+import cn.turboshow.tv.ui.iptv.IptvActivity
 import cn.turboshow.tv.ui.presenter.GridItemPresenter
-import org.fourthline.cling.android.AndroidUpnpService
-import org.fourthline.cling.android.AndroidUpnpServiceImpl
+import cn.turboshow.tv.util.ServiceBinder
 import org.fourthline.cling.model.meta.LocalDevice
 import org.fourthline.cling.model.meta.RemoteDevice
 import org.fourthline.cling.registry.Registry
 import org.fourthline.cling.registry.RegistryListener
 
-private const val SERVICE_TYPE_CONTENT_DIRECTORY = "ContentDirectory"
+private const val UPNP_SERVICE_TYPE_CONTENT_DIRECTORY = "ContentDirectory"
 
 class MainFragment : BrowseSupportFragment() {
-    private var upnpService: AndroidUpnpService? = null
+    private var tbsService: TBSService? = null
     private val devicesAdapter = ArrayObjectAdapter(GridItemPresenter())
     private val upnpRegistryListener = object : RegistryListener {
         override fun localDeviceRemoved(registry: Registry?, device: LocalDevice?) {
@@ -57,20 +55,8 @@ class MainFragment : BrowseSupportFragment() {
         }
 
     }
-    private val upnpServiceConnection = object : ServiceConnection {
-        override fun onServiceDisconnected(name: ComponentName?) {
-            upnpService!!.registry.removeListener(upnpRegistryListener)
-            upnpService = null
-        }
 
-        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-            upnpService = (service as AndroidUpnpService).also {
-                it.registry.remoteDevices.forEach(::onUpnpDeviceAdded)
-                it.registry.addListener(upnpRegistryListener)
-                it.controlPoint.search()
-            }
-        }
-    }
+    private lateinit var serviceBinder: ServiceBinder
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -78,19 +64,27 @@ class MainFragment : BrowseSupportFragment() {
         setupUIElements()
         setupEventListeners()
         loadData()
-        startScanningDevices()
+        initService()
     }
 
-    private fun startScanningDevices() {
-        bindUpnpService()
-    }
+    private fun initService() {
+        serviceBinder = object : ServiceBinder(activity!!, this) {
+            override fun onServiceConnected(binder: IBinder) {
+                tbsService = (binder as TBSService.Binder).getService().also {
+                    it.upnpService.let { upnpService ->
+                        upnpService.registry.remoteDevices.forEach(::onUpnpDeviceAdded)
+                        upnpService.registry.addListener(upnpRegistryListener)
+                        upnpService.controlPoint.search()
+                    }
+                }
+            }
 
-    private fun bindUpnpService() {
-        context?.bindService(
-            Intent(context, AndroidUpnpServiceImpl::class.java),
-            upnpServiceConnection,
-            Context.BIND_AUTO_CREATE
-        )
+            override fun onServiceDisconnected() {
+                tbsService?.upnpService?.registry?.removeListener(upnpRegistryListener)
+                tbsService = null
+            }
+        }
+        serviceBinder.bind(TBSService::class.java)
     }
 
     private fun loadData() {
@@ -104,7 +98,7 @@ class MainFragment : BrowseSupportFragment() {
                 ListRow(
                     HeaderItem(resources.getString(R.string.iptv)),
                     ArrayObjectAdapter(GridItemPresenter()).apply {
-                        add(BrowseItem(resources.getString(R.string.watch), ::openIPTVActivity))
+                        add(IptvItem())
                     })
             )
         }
@@ -119,36 +113,33 @@ class MainFragment : BrowseSupportFragment() {
 
     private fun setupEventListeners() {
         onItemViewClickedListener = OnItemViewClickedListener { _, item, _, _ ->
-            (item as BrowseItem).onSelected()
+            when (item) {
+                is IptvItem -> {
+                    context!!.startActivity(IptvActivity.newIntent(context!!))
+                }
+                is UpnpDeviceItem -> {
+                    context!!.startActivity(
+                        UpnpBrowseActivity.newIntent(
+                            context!!,
+                            item.device.displayString,
+                            item.service
+                        )
+                    )
+                }
+            }
         }
     }
 
     private fun onUpnpDeviceAdded(device: RemoteDevice) {
         activity!!.runOnUiThread {
             if (device !in devicesAdapter.unmodifiableList<RemoteDevice>()) {
-                for (upnpService in device.services) {
-                    if (upnpService.serviceType.type == SERVICE_TYPE_CONTENT_DIRECTORY) {
-                        devicesAdapter.add(BrowseItem(device.displayString, ::openBrowseActivity))
+                for (service in device.services) {
+                    if (service.serviceType.type == UPNP_SERVICE_TYPE_CONTENT_DIRECTORY) {
+                        devicesAdapter.add(UpnpDeviceItem(device, service))
                         break
                     }
                 }
             }
-        }
-    }
-
-    private fun openBrowseActivity() {
-        startActivity(BrowseActivity.newIntent(activity!!))
-    }
-
-    private fun openIPTVActivity() {
-        startActivity(IPTVActivity.newIntent(activity!!))
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        upnpService?.let {
-            upnpService!!.registry.removeListener(upnpRegistryListener)
-            context?.unbindService(upnpServiceConnection)
         }
     }
 }

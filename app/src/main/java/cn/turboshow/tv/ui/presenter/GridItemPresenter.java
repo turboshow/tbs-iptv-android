@@ -24,6 +24,7 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import androidx.leanback.widget.Presenter;
 import cn.turboshow.tv.R;
+import cn.turboshow.tv.browse.BrowseItem;
 
 public class GridItemPresenter extends Presenter {
     @Override
@@ -46,7 +47,7 @@ public class GridItemPresenter extends Presenter {
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, Object item) {
-        ((TextView) viewHolder.view).setText(item.toString());
+        ((TextView) viewHolder.view).setText(((BrowseItem) item).getTitle());
     }
 
     @Override

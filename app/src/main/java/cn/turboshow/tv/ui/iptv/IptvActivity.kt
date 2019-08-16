@@ -16,8 +16,7 @@ import cn.turboshow.tv.di.viewModelProvider
 import kotlinx.android.synthetic.main.activity_iptv.*
 import javax.inject.Inject
 
-
-class IPTVActivity : DaggerFragmentActivity() {
+class IptvActivity : DaggerFragmentActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject
@@ -101,7 +100,7 @@ class IPTVActivity : DaggerFragmentActivity() {
 
     companion object {
         fun newIntent(context: Context): Intent {
-            return Intent(context, IPTVActivity::class.java)
+            return Intent(context, IptvActivity::class.java)
         }
     }
 }
