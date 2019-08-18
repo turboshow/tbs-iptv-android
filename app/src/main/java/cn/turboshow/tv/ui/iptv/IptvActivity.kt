@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import cn.turboshow.tv.AppViewModel
 import cn.turboshow.tv.R
-import cn.turboshow.tv.TBSPlayer
+import cn.turboshow.tv.player.TBSPlayer
 import cn.turboshow.tv.data.SettingsRepository
 import cn.turboshow.tv.di.DaggerFragmentActivity
 import cn.turboshow.tv.di.viewModelProvider
@@ -28,9 +28,14 @@ class IptvActivity : DaggerFragmentActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_iptv)
-        player = TBSPlayer(this, videoView)
 
         viewModel = viewModelProvider(viewModelFactory)
+        initPlayer()
+    }
+
+    private fun initPlayer() {
+        player = TBSPlayer(this)
+        player.setVideoView(videoView)
     }
 
     private fun play() {
@@ -77,10 +82,10 @@ class IptvActivity : DaggerFragmentActivity() {
         viewModel.currentChannel.observe(this, Observer {
             play()
         })
-
-        viewModel.udpxyAddr.observe(this, Observer {
-            play()
-        })
+//
+//        viewModel.udpxyAddr.observe(this, Observer {
+//            play()
+//        })
     }
 
     override fun onStop() {

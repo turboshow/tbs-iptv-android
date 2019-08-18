@@ -8,7 +8,7 @@
         android:keepScreenOn="true"
         tools:context=".ui.iptv.IptvActivity">
 
-    <org.videolan.libvlc.util.VLCVideoLayout
+    <SurfaceView
             android:id="@+id/videoView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
