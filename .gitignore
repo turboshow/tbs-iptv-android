@@ -7,3 +7,6 @@
 /captures
 .externalNativeBuild
 **/assets/www.zip
+
+release.keystore
+app/gradle.properties
