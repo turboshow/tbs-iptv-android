@@ -24,6 +24,7 @@ class TBSPlayer(context: Context) {
     interface Callback {
         fun onPrepared()
         fun onPositionChanged()
+        fun onCompleted()
     }
 
     fun setCallback(callback: Callback) {
@@ -50,7 +51,10 @@ class TBSPlayer(context: Context) {
                 }
                 Paused -> "Paused"
                 Stopped -> "Stopped"
-                EndReached -> "EndReached"
+                EndReached -> {
+                    callback?.onCompleted()
+                    "EndReached"
+                }
                 EncounteredError -> "EncounteredError"
                 TimeChanged -> "TimeChanged"
                 PositionChanged -> {

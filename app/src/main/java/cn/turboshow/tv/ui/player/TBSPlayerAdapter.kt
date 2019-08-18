@@ -14,6 +14,10 @@ class TBSPlayerAdapter(private val player: TBSPlayer) : PlayerAdapter() {
             override fun onPositionChanged() {
                 callback.onCurrentPositionChanged(this@TBSPlayerAdapter)
             }
+
+            override fun onCompleted() {
+                callback.onPlayCompleted(this@TBSPlayerAdapter)
+            }
         })
     }
     override fun pause() {

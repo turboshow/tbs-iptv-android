@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.leanback.app.VideoSupportFragment
 import androidx.leanback.app.VideoSupportFragmentGlueHost
+import androidx.leanback.media.PlaybackGlue
 import androidx.leanback.media.PlaybackTransportControlGlue
 import androidx.leanback.media.PlayerAdapter
 import cn.turboshow.tv.player.TBSPlayer
@@ -39,6 +40,11 @@ class PlayerFragment : VideoSupportFragment() {
             it.title = arguments!!.getString(ARG_TITLE)
             it.isControlsOverlayAutoHideEnabled = true
             it.host = VideoSupportFragmentGlueHost(this)
+            it.addPlayerCallback(object: PlaybackGlue.PlayerCallback() {
+                override fun onPlayCompleted(glue: PlaybackGlue?) {
+                    activity!!.finish()
+                }
+            })
         }
 
         val savedPosition = loadSavedPosition()
