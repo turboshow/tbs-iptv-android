@@ -10,7 +10,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
-        versionName "0.2.1"
+        versionName "0.2.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         ndk {
@@ -103,7 +103,7 @@ dependencies {
     implementation "org.nanohttpd:nanohttpd:$nanohttpdVersion"
 
     // vlc
-    implementation "org.videolan:vlc-lib-android:$libvlcVersion"
+    implementation project(':libvlc')
 
     // zip4j
     implementation "net.lingala.zip4j:zip4j:$zip4jVersion"
