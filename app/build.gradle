@@ -9,8 +9,8 @@ android {
         applicationId "cn.turboshow.tv"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 1
-        versionName "0.2.2"
+        versionCode 30000
+        versionName "0.3.0-SNAPSHOT"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         ndk {
@@ -61,7 +61,7 @@ androidExtensions {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     implementation "androidx.core:core-ktx:$coreKtxVersion"
     implementation "androidx.legacy:legacy-support-v4:$legacyVersion"
@@ -101,9 +101,6 @@ dependencies {
 
     // nanohttpd
     implementation "org.nanohttpd:nanohttpd:$nanohttpdVersion"
-
-    // vlc
-    implementation project(':libvlc')
 
     // zip4j
     implementation "net.lingala.zip4j:zip4j:$zip4jVersion"
