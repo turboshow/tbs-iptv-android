@@ -8,7 +8,7 @@ import cn.turboshow.tv.R
 import cn.turboshow.tv.browse.IptvItem
 import cn.turboshow.tv.browse.UpnpDeviceItem
 import cn.turboshow.tv.service.TBSService
-import cn.turboshow.tv.ui.browse.UpnpBrowseActivity
+import cn.turboshow.tv.ui.browse.BrowseActivity
 import cn.turboshow.tv.ui.iptv.IptvActivity
 import cn.turboshow.tv.ui.presenter.GridItemPresenter
 import cn.turboshow.tv.util.ServiceBinder
@@ -29,7 +29,11 @@ class MainFragment : BrowseSupportFragment() {
         override fun remoteDeviceDiscoveryStarted(registry: Registry?, device: RemoteDevice?) {
         }
 
-        override fun remoteDeviceDiscoveryFailed(registry: Registry?, device: RemoteDevice?, ex: Exception?) {
+        override fun remoteDeviceDiscoveryFailed(
+            registry: Registry?,
+            device: RemoteDevice?,
+            ex: Exception?
+        ) {
         }
 
         override fun afterShutdown() {
@@ -98,7 +102,7 @@ class MainFragment : BrowseSupportFragment() {
                 ListRow(
                     HeaderItem(resources.getString(R.string.iptv)),
                     ArrayObjectAdapter(GridItemPresenter()).apply {
-                        add(IptvItem())
+                        add(IptvItem(getString(R.string.watch)))
                     })
             )
         }
@@ -119,7 +123,7 @@ class MainFragment : BrowseSupportFragment() {
                 }
                 is UpnpDeviceItem -> {
                     context!!.startActivity(
-                        UpnpBrowseActivity.newIntent(
+                        BrowseActivity.newIntent(
                             context!!,
                             item.device.displayString,
                             item.service

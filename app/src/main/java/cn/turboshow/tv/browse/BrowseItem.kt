@@ -1,3 +1,5 @@
 package cn.turboshow.tv.browse
 
-abstract class BrowseItem(val title: String)
+import android.graphics.drawable.Drawable
+
+abstract class BrowseItem(val icon: Drawable, val title: String)

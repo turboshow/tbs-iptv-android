@@ -1,3 +1,5 @@
 package cn.turboshow.tv.browse
 
-class IptvItem: BrowseItem("Watch")
+import android.graphics.drawable.ColorDrawable
+
+class IptvItem(title: String): BrowseItem(ColorDrawable(), title)
