@@ -1,13 +1,25 @@
 ### [中文](README-zh.md) | English
 
-# TBS IPTV player for Android devices, based on libvlc.
+# TBS media player for Android TV, based on libvlc.
 
 [official site](http://www.turboshow.cn) (Chinese)
 
-[Downloads](https://github.com/plestoon/tbs-android/releases)
+[Downloads](https://github.com/turboshow/tbs-tv-android/releases)
 
 ![](http://www.turboshow.cn/assets/img/screenshot_tv.ede24e22.png)
-## Configuration
+
+## Features
+
+* DLNA
+* IPTV with udpxy support
+
+## Upcoming
+
+* Local storage browsing
+* SMB
+* Screen casting
+
+## IPTV Configuration
 ### web interface
 `http://{yourAppHostIp}:1212`
 
