@@ -8,6 +8,7 @@ import androidx.leanback.app.VideoSupportFragmentGlueHost
 import androidx.leanback.media.PlaybackGlue
 import androidx.leanback.media.PlaybackTransportControlGlue
 import androidx.leanback.media.PlayerAdapter
+import androidx.leanback.widget.PlaybackSeekDataProvider
 import cn.turboshow.tv.player.TBSPlayer
 
 class PlayerFragment : VideoSupportFragment() {
@@ -29,6 +30,10 @@ class PlayerFragment : VideoSupportFragment() {
         super.onStop()
     }
 
+    private fun generateSeekPositions(duration: Long): LongArray {
+        return (0..duration).step(20000).toList().toLongArray()
+    }
+
     private fun initPlayer() {
         player = TBSPlayer(context!!)
         player!!.setMedia(uri)
@@ -41,6 +46,17 @@ class PlayerFragment : VideoSupportFragment() {
             it.isControlsOverlayAutoHideEnabled = true
             it.host = VideoSupportFragmentGlueHost(this)
             it.addPlayerCallback(object: PlaybackGlue.PlayerCallback() {
+                override fun onPreparedStateChanged(glue: PlaybackGlue?) {
+                    if (playerGlue != null) {
+                        val duration = player!!.getDuration()
+                        val seekPositions = generateSeekPositions(duration)
+                        playerGlue!!.seekProvider = object: PlaybackSeekDataProvider() {
+                            override fun getSeekPositions(): LongArray {
+                                return seekPositions
+                            }
+                        }
+                    }
+                }
                 override fun onPlayCompleted(glue: PlaybackGlue?) {
                     activity!!.finish()
                 }
