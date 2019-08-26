@@ -3,9 +3,4 @@
     <color name="colorPrimary">#1565c0</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-
-    <color name="default_background">#1565c0</color>
-
-    <color name="browse_item_background">@android:color/transparent</color>
-    <color name="browse_item_background_focused">#11FFFFFF</color>
 </resources>

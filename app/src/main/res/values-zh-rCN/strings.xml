@@ -1,7 +1,3 @@
 <resources>
-    <string name="app_name">土拨鼠</string>
-
-    <string name="browse">浏览</string>
-    <string name="iptv">IPTV</string>
-    <string name="watch">观看</string>
+    <string name="app_name">土拨鼠IPTV</string>
 </resources>
