@@ -9,8 +9,8 @@ android {
         applicationId "cn.turboshow.iptv.tv"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 30000
-        versionName "0.3.0"
+        versionCode 20400
+        versionName "0.2.4"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

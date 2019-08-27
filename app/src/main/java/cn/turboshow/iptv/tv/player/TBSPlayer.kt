@@ -139,7 +139,7 @@ class TBSPlayer(context: Context) {
     private fun attacheViews() {
         videoHelper = VideoHelper(player, videoView)
         videoHelper?.let {
-            it.videoScale = MediaPlayer.ScaleType.SURFACE_BEST_FIT
+            it.videoScale = MediaPlayer.ScaleType.SURFACE_FIT_SCREEN
             it.attachViews()
             it.updateVideoSurfaces()
         }

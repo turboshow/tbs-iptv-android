@@ -21,7 +21,7 @@ class WebServer @Inject constructor(
     private val moshi: Moshi,
     private val settingsRepository: SettingsRepository,
     private val playlistRepository: PlaylistRepository
-) : NanoHTTPD("0.0.0.0", 1212) {
+) : NanoHTTPD("0.0.0.0", 1213) {
     private val wwwZipFileName = "www.zip"
     private val wwwRoot = "www"
 
