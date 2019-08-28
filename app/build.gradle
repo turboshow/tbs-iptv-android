@@ -49,17 +49,17 @@ android {
         enabled true
     }
 
+    packagingOptions {
+        exclude 'META-INF/beans.xml'
+    }
+
     compileOptions {
-        sourceCompatibility 1.8
-        targetCompatibility 1.8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
         jvmTarget = "1.8"
-    }
-
-    packagingOptions {
-        exclude 'META-INF/beans.xml'
     }
 }
 
@@ -70,6 +70,7 @@ androidExtensions {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
     implementation "androidx.core:core-ktx:$coreKtxVersion"
     implementation "androidx.legacy:legacy-support-v4:$legacyVersion"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
@@ -118,10 +119,4 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-}
-
-configurations.all {
-    resolutionStrategy.force "org.seamless:seamless-http:$seamlessVersion"
-    resolutionStrategy.force "org.seamless:seamless-util:$seamlessVersion"
-    resolutionStrategy.force "org.seamless:seamless-xml:$seamlessVersion"
 }
