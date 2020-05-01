@@ -1,27 +1,19 @@
 ### 中文 | [English](README.md)
 
-# 土拨鼠影音，安卓电视播放器
-目前支持：
-* DLNA
-* IPTV，包括udpxy
-
-即将支持:
-* 本地浏览
-* SMB
-* 投屏
+# 土拨鼠IPTV，支持udpxy
 
 ## [官网](http://www.turboshow.cn)
 
 ![输入图片说明](https://images.gitee.com/uploads/images/2019/0727/201458_7b480937_82552.png "screenshot_tv.png")
 ## IPTV设置
 ### web界面
-`http://{app所在设备IP}:1212`
+`http://{app所在设备IP}:1213`
 
 ### Web API
 #### 导入播放列表
 注：请自行抓包制作播放列表，或者网上找
 
-`POST http://{app所在设备IP}:1212/api/settings/playlist`
+`POST http://{app所在设备IP}:1213/api/settings/playlist`
 
 body
 ```
@@ -41,7 +33,7 @@ body
 #### udpxy
 如路由器支持udpxy，可设置相应地址进行加速.
 
-`POST http://{app所在设备IP}:1212/api/settings/udpxy`
+`POST http://{app所在设备IP}:1213/api/settings/udpxy`
 
 body
 ```
@@ -58,8 +50,3 @@ body
 }
 ```
 
-## build内置web界面
-
-`$ cd web`
-
-`$ ./deploy.sh`
