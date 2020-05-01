@@ -4,7 +4,7 @@
 
 [official site](http://www.turboshow.cn) (Chinese)
 
-![](http://www.turboshow.cn/assets/img/screenshot_tv.ede24e22.png)
+![](https://images.gitee.com/uploads/images/2019/0727/201458_7b480937_82552.png)
 
 ## IPTV Configuration
 ### web interface
