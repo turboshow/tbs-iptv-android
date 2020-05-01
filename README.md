@@ -32,7 +32,7 @@ body
 #### udpxy
 udpxy can be enabled to convert RTP to HTTP.
 
-`POST http://{yourAppHostIp}:1212/api/settings/udpxy`
+`POST http://{yourAppHostIp}:1213/api/settings/udpxy`
 
 body
 ```
