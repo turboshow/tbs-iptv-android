@@ -3,6 +3,7 @@ package cn.turboshow.iptv.tv.data
 import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import cn.turboshow.iptv.tv.model.Channel
+import com.hadilq.liveevent.LiveEvent
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import javax.inject.Inject
@@ -14,7 +15,7 @@ class PlaylistRepository @Inject constructor(
     private val moshi: Moshi
 ) {
     val channels = MutableLiveData<List<Channel>>()
-    val currentChannel = MutableLiveData<Channel>()
+    val currentChannel = LiveEvent<Channel>()
 
     init {
         loadChannels()

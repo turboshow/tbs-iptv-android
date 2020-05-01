@@ -13,6 +13,7 @@ import cn.turboshow.iptv.tv.player.TBSPlayer
 import cn.turboshow.iptv.tv.data.SettingsRepository
 import cn.turboshow.iptv.tv.di.DaggerFragmentActivity
 import cn.turboshow.iptv.tv.di.viewModelProvider
+import cn.turboshow.iptv.tv.service.TBSService
 import kotlinx.android.synthetic.main.activity_iptv.*
 import javax.inject.Inject
 
@@ -31,6 +32,7 @@ class IptvActivity : DaggerFragmentActivity() {
 
         viewModel = viewModelProvider(viewModelFactory)
         initPlayer()
+        startService(TBSService.newIntent(this))
     }
 
     private fun initPlayer() {
@@ -82,10 +84,12 @@ class IptvActivity : DaggerFragmentActivity() {
         viewModel.currentChannel.observe(this, Observer {
             play()
         })
-//
-//        viewModel.udpxyAddr.observe(this, Observer {
-//            play()
-//        })
+
+        viewModel.udpxyAddr.observe(this, Observer {
+            play()
+        })
+
+        play()
     }
 
     override fun onStop() {

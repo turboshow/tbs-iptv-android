@@ -2,6 +2,7 @@ package cn.turboshow.iptv.tv.data
 
 import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
+import com.hadilq.liveevent.LiveEvent
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -11,7 +12,7 @@ private const val KEY_UDPXY_ADDR = "udpxy_addr"
 class SettingsRepository @Inject constructor(
     private val sharedPreferences: SharedPreferences
 ) {
-    val udpxyAddr = MutableLiveData<String>()
+    val udpxyAddr = LiveEvent<String>()
 
     init {
         sharedPreferences.getString(KEY_UDPXY_ADDR, null)?.let {
