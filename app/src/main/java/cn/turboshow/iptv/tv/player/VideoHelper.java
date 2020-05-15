@@ -43,8 +43,12 @@ public class VideoHelper implements IVLCVout.OnNewVideoLayoutListener {
     }
 
     public void release() {
-        if (mMediaPlayer.getVLCVout().areViewsAttached()) detachViews();
-        mMediaPlayer = null;
+        if (mMediaPlayer != null) {
+            mVideoSurface.removeOnLayoutChangeListener(mOnLayoutChangeListener);
+            mOnLayoutChangeListener = null;
+            if (mMediaPlayer.getVLCVout().areViewsAttached()) detachViews();
+            mMediaPlayer = null;
+        }
         mHandler.removeCallbacks(null);
         mVideoSurface = null;
     }
@@ -73,8 +77,6 @@ public class VideoHelper implements IVLCVout.OnNewVideoLayoutListener {
     }
 
     public void detachViews() {
-        mVideoSurface.removeOnLayoutChangeListener(mOnLayoutChangeListener);
-        mOnLayoutChangeListener = null;
         mMediaPlayer.setVideoTrackEnabled(false);
         mMediaPlayer.getVLCVout().detachViews();
     }

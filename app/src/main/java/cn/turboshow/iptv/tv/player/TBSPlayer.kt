@@ -80,7 +80,9 @@ class TBSPlayer(context: Context) {
     }
 
     fun setMedia(uri: Uri) {
-        player.media = Media(libVLC, uri)
+        val media = Media(libVLC, uri)
+        player.media = media
+        media.release()
     }
 
     fun setStartPosition(position: Long) {
@@ -146,7 +148,7 @@ class TBSPlayer(context: Context) {
     }
 
     private fun detachViews() {
-        videoHelper?.detachViews()
         videoHelper?.release()
+        videoHelper = null
     }
 }
